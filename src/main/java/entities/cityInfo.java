@@ -12,6 +12,8 @@ import javax.persistence.Id;
 * Benjamin Choleva, Lasse Emil Støvring Larsen
  */
 
+
+//test comment
 @Entity
 public class CityInfo implements Serializable {
 

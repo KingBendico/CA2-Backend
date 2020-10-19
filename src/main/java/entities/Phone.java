@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+* Author:
+* Benjamin Choleva, Lasse Emil Støvring Larsen
+ */
 
 @Entity
 public class Phone implements Serializable {
@@ -17,6 +21,7 @@ public class Phone implements Serializable {
     private String number;
     private String description;
 
+    //Constructors
     public Phone() {
     }
 
@@ -25,6 +30,7 @@ public class Phone implements Serializable {
         this.description = description;
     }
 
+    //Getters & Setters
     public String getNumber() {
         return number;
     }

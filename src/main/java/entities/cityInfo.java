@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+* Author:
+* Benjamin Choleva, Lasse Emil Støvring Larsen
+ */
+
 @Entity
 public class CityInfo implements Serializable {
 
@@ -23,6 +28,7 @@ public class CityInfo implements Serializable {
     @Column(length = 35)
     private String city;
 
+    //Constructors
     public CityInfo() {
     }
 
@@ -31,6 +37,7 @@ public class CityInfo implements Serializable {
         this.city = city;
     }
 
+    //Getters & Setters
     public String getZipCode() {
         return zipCode;
     }

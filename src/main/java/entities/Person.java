@@ -7,6 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+/*
+* Author:
+* Benjamin Choleva, Lasse Emil Støvring Larsen
+ */
+
 @Entity
 public class Person implements Serializable {
 
@@ -24,6 +30,7 @@ public class Person implements Serializable {
     //mange til mange
     private List pHobbies;
 
+    //Constructors
     public Person() {
     }
 
@@ -36,6 +43,7 @@ public class Person implements Serializable {
         this.pHobbies = pHobbies;
     }
 
+    //Getters & Setters
     public String getFirstName() {
         return firstName;
     }

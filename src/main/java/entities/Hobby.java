@@ -10,6 +10,7 @@ import javax.persistence.Id;
 * Author:
 * Benjamin Choleva, Lasse Emil Støvring Larsen
  */
+
 @Entity
 public class Hobby implements Serializable {
 
@@ -23,6 +24,7 @@ public class Hobby implements Serializable {
     private String hCategory;
     private String hType;
 
+    //Constructors
     public Hobby() {
     }
 
@@ -33,6 +35,7 @@ public class Hobby implements Serializable {
         this.hCategory = hCategory;
     }
 
+    //Getters & Setters
     public String gethName() {
         return hName;
     }

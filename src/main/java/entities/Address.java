@@ -6,6 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+* Author:
+* Benjamin Choleva, Lasse Emil Støvring Larsen
+ */
+
 @Entity
 public class Address implements Serializable {
 
@@ -16,6 +21,7 @@ public class Address implements Serializable {
     private String street;
     private String additionalInfo;
 
+    //Constructors
     public Address() {
     }
 
@@ -24,6 +30,7 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
+    //Getters & Setters
     public String getStreet() {
         return street;
     }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /*
 * Author:
@@ -23,6 +24,11 @@ public class Hobby implements Serializable {
     private String hWikiLink;
     private String hCategory;
     private String hType;
+    
+    @ManyToOne
+    private Person person;
+    
+    
 
     //Constructors
     public Hobby() {

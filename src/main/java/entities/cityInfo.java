@@ -14,6 +14,7 @@ import javax.persistence.Id;
 
 
 //test comment
+
 @Entity
 public class CityInfo implements Serializable {
 

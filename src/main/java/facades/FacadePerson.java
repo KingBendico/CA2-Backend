@@ -68,6 +68,7 @@ public class FacadePerson {
     public List<PersonDTO> getPersonsByHobby(String hobby) {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.hName=:hobby");
+        query.setParameter("hobby", hobby);
         List<Person> personDetails = query.getResultList();
         List<PersonDTO> personDTOList = new ArrayList<>();
         personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
@@ -77,8 +78,8 @@ public class FacadePerson {
     //TODO public List<PersonDTO> getPersonsByZip(String zip)
     public List<PersonDTO> getPersonsByZip(String zip) {
         EntityManager em = emf.createEntityManager();
-        //Query query = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE NOT EXISTS (SELECT b FROM Address b JOIN b.cityInfo c WHERE c.zipcode=:zip)");
         Query query = em.createQuery("SELECT p FROM Person p WHERE NOT EXISTS (SELECT a FROM Address a JOIN a.cityInfo c WHERE c.zipCode=:zip)");
+        query.setParameter("zip", zip);
         List<Person> personDetails = query.getResultList();
         List<PersonDTO> personDTOList = new ArrayList<>();
         personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
@@ -88,6 +89,20 @@ public class FacadePerson {
     //Single result methods
 
     //TODO public PersonDTO getPersonByPhone(String phone)
+    /*public PersonDTO getPersonByPhone(String phone) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query = em.createQuery("SELECT pe FROM Person pe JOIN pe.phones ph WHERE NOT EXISTS (SELECT n FROM Phone n WHERE ph = n AND n.number=:phone)", Person.class);
+        query.setParameter("phone", phone);
+        return new PersonDTO(query.getSingleResult());
+    }*/
     //TODO public PersonDTO addPerson(PersonDTO person)
-    //TODO public PersonDTO editPerson(PersonDTO person)
+
+    //TODO public PersonDTO editPerson(long id, PersonDTO person)
+    /*public PersonDTO editPerson(long id, PersonDTO personDTO) {
+        EntityManager em = emf.createEntityManager();
+        Person person = new Person(personDTO.getFirstName(), personDTO.getLastName(), personDTO.getEmail());
+        Query query = em.createQuery("UPDATE Person p SET p.firstName = :firstName");
+
+    }*/
+
 }

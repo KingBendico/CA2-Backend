@@ -1,5 +1,6 @@
 package dto;
 
+import entities.Address;
 import entities.Person;
 
 import java.util.List;
@@ -8,20 +9,22 @@ import java.util.List;
  * @author Joakim
  */
 public class PersonDTO {
-    private String firstName, lastName, email, phoneNumber, pAddress;
-    private List pHobbies;
+    private String firstName, lastName, email;
+    private Address address;
+    private List phones, hobbies;
 
     //Constructors
     public PersonDTO(Person person) {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.email = person.getEmail();
-        this.phoneNumber = person.getPhoneNumber();
-        this.pAddress = person.getpAddress();
-        this.pHobbies = person.getpHobbies();
+        this.phones = person.getPhones();
+        this.address = person.getAddress();
+        this.hobbies = person.getHobbies();
     }
 
     //Getters and setters
+
     public String getFirstName() {
         return firstName;
     }
@@ -46,28 +49,28 @@ public class PersonDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public String getpAddress() {
-        return pAddress;
+    public List getPhones() {
+        return phones;
     }
 
-    public void setpAddress(String pAddress) {
-        this.pAddress = pAddress;
+    public void setPhones(List phones) {
+        this.phones = phones;
     }
 
-    public List getpHobbies() {
-        return pHobbies;
+    public List getHobbies() {
+        return hobbies;
     }
 
-    public void setpHobbies(List pHobbies) {
-        this.pHobbies = pHobbies;
+    public void setHobbies(List hobbies) {
+        this.hobbies = hobbies;
     }
 }
 

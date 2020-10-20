@@ -69,4 +69,13 @@ public class CityInfo implements Serializable {
         return id;
     }
 
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+    }
+    
+
 }

@@ -7,7 +7,7 @@
 * Joakim Karstoft Skaarup Stensnæs
 * Lasse Emil Støvring Larsen
 
-[![Build Status](https://travis-ci.org/KingBendico/CA2-Backend.svg?branch=main)](https://travis-ci.org/KingBendico/CA2-Backend)<br>
+[![Build Status](https://travis-ci.org/KingBendico/CA2-Backend.svg?branch=master)](https://travis-ci.org/KingBendico/CA2-Backend)<br>
 
 ## Gruppekontrakt
 

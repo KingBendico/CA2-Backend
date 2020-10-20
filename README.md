@@ -9,12 +9,6 @@
 
 [![Build Status](https://travis-ci.org/KingBendico/CA2-Backend.svg?branch=main)](https://travis-ci.org/KingBendico/CA2-Backend)<br>
 
-
-# Gruppe 1
-
-```
-Benjamin David Choleva, Frederik Riisager Johnsen, Joakim Skaarup Stensnæs, Lasse Emil Støvring Larsen
-```
 ## Gruppekontrakt
 
 **GitHub:**

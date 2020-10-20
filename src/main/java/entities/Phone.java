@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /*
 * Author:
@@ -20,6 +22,10 @@ public class Phone implements Serializable {
     private Long id;
     private String number;
     private String description;
+    
+    @ManyToOne
+    private Person person;
+    
 
     //Constructors
     public Phone() {
@@ -50,5 +56,12 @@ public class Phone implements Serializable {
     public Long getId() {
         return id;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+    
+    
+    
 
 }

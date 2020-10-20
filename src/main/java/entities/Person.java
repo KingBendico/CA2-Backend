@@ -2,10 +2,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 /*
@@ -23,24 +26,36 @@ public class Person implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    //en til mange
-    private String phoneNumber;
+  
+  
     //mange til en
-    private String pAddress;
+   // private String pAddress;
+    
+    
     //mange til mange
-    private List pHobbies;
+  //  private List pHobbies;
+    
+      //en til mange
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    private List<Phone> phones;
 
+    //mange til en
+    @ManyToOne
+    private Address address;
+    
+    //en til mange
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+     private List<Hobby> hobbies;
+    
+    
     //Constructors
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String email, String phoneNumber, String pAddress, List pHobbies) {
+    public Person(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.pAddress = pAddress;
-        this.pHobbies = pHobbies;
     }
 
     //Getters & Setters
@@ -68,32 +83,21 @@ public class Person implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getpAddress() {
-        return pAddress;
-    }
-
-    public void setpAddress(String pAddress) {
-        this.pAddress = pAddress;
-    }
-
-    public List getpHobbies() {
-        return pHobbies;
-    }
-
-    public void setpHobbies(List pHobbies) {
-        this.pHobbies = pHobbies;
-    }
-
     public Long getId() {
         return id;
     }
 
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+ 
 }

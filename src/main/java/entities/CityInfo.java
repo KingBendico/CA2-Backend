@@ -1,11 +1,14 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /*
 * Author:
@@ -39,6 +42,11 @@ public class CityInfo implements Serializable {
         this.zipCode = zipCode;
         this.city = city;
     }
+    
+     @OneToMany(mappedBy = "cityInfo", cascade = CascadeType.PERSIST)
+    private List<Address> addresses;
+    
+    
 
     //Getters & Setters
     public String getZipCode() {

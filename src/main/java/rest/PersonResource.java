@@ -16,6 +16,7 @@ public class PersonResource {
 
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
+    //commit me you fucking git
 
  //   private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();

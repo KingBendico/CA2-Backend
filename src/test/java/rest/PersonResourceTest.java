@@ -4,6 +4,9 @@ import entities.Person;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItem;
+
 import io.restassured.parsing.Parser;
 import java.net.URI;
 import javax.persistence.EntityManager;
@@ -13,7 +16,6 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,7 +68,7 @@ public class PersonResourceTest {
         r2 = new Person();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createQuery("DELETE FROM Person").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
             em.getTransaction().commit();
@@ -80,25 +82,56 @@ public class PersonResourceTest {
         System.out.println("Testing is server UP");
         given().when().get("/xxx").then().statusCode(200);
     }
-   
-    //This test assumes the database contains two rows
+
     @Test
     public void testDummyMsg() throws Exception {
         given()
-        .contentType("application/json")
-        .get("/xxx/").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("msg", equalTo("Hello World"));   
+                .contentType("application/json")
+                .get("/xxx/").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("msg", equalTo("The API is up and running"));
     }
-    
+
     @Test
-    public void testCount() throws Exception {
+    public void testGetPerson() throws Exception {
         given()
-        .contentType("application/json")
-        .get("/xxx/count").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
+                .contentType("application/json")
+                .get("/persons/person/12345").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("firstname", equalTo("Bent"));
+    }
+
+    @Test
+    public void testgetPersonsByHobby() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/persons/hobby/Klatring").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("id", hasSize(2));
+
+        given()
+                .contentType("application/json")
+                .get("/persons/hobby/Spil").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("firstname", hasItem("Bo"));
+    }
+
+    @Test
+    public void testGetPersonsByZip() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/persons/zip/???").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("firstname", hasItem("Bent"));
+    }
+
+    @Test
+    public void testaddPerson() throws Exception {
+        //waiting for DTO implementations
     }
 }

@@ -22,27 +22,30 @@ import javax.persistence.OneToMany;
 public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+ //  @GeneratedValue(strategy = GenerationType.IDENTITY)
+ // private Long id;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(length = 4)
     private String zipCode;
 
     @Column(length = 35)
     private String city;
-
+    
+ @OneToMany(mappedBy = "cityInfo", cascade = CascadeType.PERSIST)
+    private List<Address> addresses;
+ 
     //Constructors
     public CityInfo() {
     }
-
+    
+  
     public CityInfo(String zipCode, String city) {
         this.zipCode = zipCode;
         this.city = city;
     }
     
-     @OneToMany(mappedBy = "cityInfo", cascade = CascadeType.PERSIST)
-    private List<Address> addresses;
+   
     
     
 
@@ -63,9 +66,7 @@ public class CityInfo implements Serializable {
         this.city = city;
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public List<Address> getAddresses() {
         return addresses;

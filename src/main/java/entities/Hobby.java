@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,18 +20,20 @@ import javax.persistence.ManyToMany;
 public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
+ 
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // private Long id;  
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long id;
-    private String hName;
-    private String hWikiLink;
-    private String hCategory;
-    private String hType;
+    @Column(length = 50)
+    private String name;
+    
+    private String wikiLink;
+    private String category;
+    private String type;
     
     @ManyToMany(mappedBy = "hobbies", cascade = CascadeType.PERSIST)
     private List<Person> persons;
-    
     
 
     //Constructors
@@ -38,48 +41,45 @@ public class Hobby implements Serializable {
     }
 
     public Hobby(String hName, String hLink, String hType, String hCategory) {
-        this.hName = hName;
-        this.hWikiLink = hLink;
-        this.hType = hType;
-        this.hCategory = hCategory;
+        this.name = hName;
+        this.wikiLink = hLink;
+        this.type = hType;
+        this.category = hCategory;
     }
 
     //Getters & Setters
     public String gethName() {
-        return hName;
+        return name;
     }
 
     public void sethName(String hName) {
-        this.hName = hName;
+        this.name = hName;
     }
 
     public String gethWikiLink() {
-        return hWikiLink;
+        return wikiLink;
     }
 
     public void sethWikiLink(String hWikiLink) {
-        this.hWikiLink = hWikiLink;
+        this.wikiLink = hWikiLink;
     }
 
     public String gethCategory() {
-        return hCategory;
+        return category;
     }
 
     public void sethCategory(String hCategory) {
-        this.hCategory = hCategory;
+        this.category = hCategory;
     }
 
     public String gethType() {
-        return hType;
+        return type;
     }
 
     public void sethType(String hType) {
-        this.hType = hType;
+        this.type = hType;
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public List<Person> getPersons() {
         return persons;

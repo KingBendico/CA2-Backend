@@ -26,11 +26,9 @@ public class CityInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Id
     @Column(length = 4)
     private String zipCode;
 
-    @Id
     @Column(length = 35)
     private String city;
 

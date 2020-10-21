@@ -1,11 +1,14 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+
 
 /*
 * Author:
@@ -25,8 +28,8 @@ public class Hobby implements Serializable {
     private String hCategory;
     private String hType;
     
-    @ManyToOne
-    private Person person;
+    @ManyToMany(mappedBy = "hobbies", cascade = CascadeType.PERSIST)
+    private List<Person> persons;
     
     
 
@@ -78,16 +81,15 @@ public class Hobby implements Serializable {
         return id;
     }
 
-    public Person getPerson() {
-        return person;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-        if(person != null) {
-           person.addHobby(this);
-        }
+    public void addPerson (Person person) {
+        this.persons.add(person);
     }
+
+
     
     
 

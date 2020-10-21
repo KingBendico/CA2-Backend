@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,16 +29,16 @@ public class Person implements Serializable {
     private String lastName;
     private String email;
   
-      //en til mange
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+      //en til mange , cascade = CascadeType.PERSIST
+    @OneToMany(mappedBy = "person")
     private List<Phone> phones;
 
     //mange til en
     @ManyToOne
     private Address address;
     
-    //en til mange
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    //mange til mange
+    @ManyToMany
      private List<Hobby> hobbies;
     
     
@@ -108,6 +109,7 @@ public class Person implements Serializable {
 
     public void addHobby(Hobby hobby) {
         this.hobbies.add(hobby);
+        hobby.getPersons().add(this);
        
     }
 

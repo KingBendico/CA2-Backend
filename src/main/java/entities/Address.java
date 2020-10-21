@@ -30,6 +30,7 @@ public class Address implements Serializable {
     @ManyToOne
     private CityInfo cityInfo;
     
+    //
     @OneToMany(mappedBy = "address", cascade = CascadeType.PERSIST)
     private List<Person> persons;
     

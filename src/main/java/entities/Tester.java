@@ -17,7 +17,7 @@ public class Tester {
              EntityManager em = emf.createEntityManager();
         
         Person p1 = new Person("Bob", "Lasseboy", "bob@lasseboy.dk");
-         Person p2 = new Person("Bob", "benjiboy", "bob@benjiboy.dk");
+        Person p2 = new Person("Bob", "benjiboy", "bob@benjiboy.dk");
        
         
 //        Phone ph1 = new Phone("28238182", "mobile");

@@ -15,10 +15,12 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ca2_db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="dev"/>
       <property name="javax.persistence.jdbc.password" value="ax2"/>
-     
-     <property name="javax.persistence.sql-load-script-source" value="META-INF/hobbyScript.sql"/>
-    <property name="javax.persistence.sql-load-script-source" value="META-INF/zipScript.sql"/> 
+      
+    
+     <property name="javax.persistence.sql-load-script-source" value="META-INF/zipHobbyScript.sql"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+   
+      
       
     </properties>
     

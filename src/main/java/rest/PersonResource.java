@@ -20,7 +20,6 @@ public class PersonResource {
 
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
-    //commit me you fucking git
 
     private static final FacadePerson FACADE = FacadePerson.getFacadePerson(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -34,8 +33,12 @@ public class PersonResource {
     @Path("/person/{phone}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getPerson(@PathParam("phone") int phone) {
-        return null;
+    public Response getPerson(@PathParam("phone") String phone) {
+        PersonDTO person = FACADE.getPersonByPhone(phone);
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 
     @Path("/hobby/{hobby}")
@@ -73,15 +76,23 @@ public class PersonResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response addPerson() {
-        return null;
+    public Response addPerson(String input) {
+        PersonDTO person = FACADE.addPerson( GSON.fromJson(input, PersonDTO.class) );
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 
     @Path("/edit/{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response editPerson(@PathParam("id") int id) {
-        return null;
+    public Response editPerson(@PathParam("id") int id, String input) {
+        PersonDTO person = FACADE.editPerson( id, GSON.fromJson(input, PersonDTO.class) );
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 }

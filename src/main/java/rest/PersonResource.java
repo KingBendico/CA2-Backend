@@ -34,8 +34,12 @@ public class PersonResource {
     @Path("/person/{phone}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getPerson(@PathParam("phone") int phone) {
-        return null;
+    public Response getPerson(@PathParam("phone") String phone) {
+        PersonDTO person = FACADE.getPersonByPhone(phone);
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 
     @Path("/hobby/{hobby}")
@@ -73,8 +77,12 @@ public class PersonResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response addPerson() {
-        return null;
+    public Response addPerson(String input) {
+        PersonDTO person = FACADE.addPerson( GSON.fromJson(input, PersonDTO.class) );
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 
     @Path("/edit/{id}")

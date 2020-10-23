@@ -51,7 +51,6 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.phones = new ArrayList<>();
-        this.address = address;
         this.hobbies = new ArrayList<>();
     }
 
@@ -88,6 +87,10 @@ public class Person implements Serializable {
         return phones;
     }
 
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
     public void addPhone(Phone phone) {
         this.phones.add(phone);
     }
@@ -105,6 +108,10 @@ public class Person implements Serializable {
 
     public List<Hobby> getHobbies() {
         return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies){
+        this.hobbies = hobbies;
     }
 
     public void addHobby(Hobby hobby) {

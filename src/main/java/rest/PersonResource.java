@@ -20,7 +20,6 @@ public class PersonResource {
 
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
-    //commit me you fucking git
 
     private static final FacadePerson FACADE = FacadePerson.getFacadePerson(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -89,7 +88,11 @@ public class PersonResource {
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response editPerson(@PathParam("id") int id) {
-        return null;
+    public Response editPerson(@PathParam("id") int id, String input) {
+        PersonDTO person = FACADE.editPerson( id, GSON.fromJson(input, PersonDTO.class) );
+
+        return Response.ok()
+                .entity( GSON.toJson(person) )
+                .build();
     }
 }

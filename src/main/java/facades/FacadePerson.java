@@ -76,7 +76,7 @@ public class FacadePerson {
         EntityManager em = emf.createEntityManager();
         List<PersonDTO> personDTOList;
         try {
-            Query query = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.hName=:hobby");
+            Query query = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name=:hobby");
             query.setParameter("hobby", hobby);
             List<Person> personDetails = query.getResultList();
             personDTOList = new ArrayList<>();
@@ -136,14 +136,26 @@ public class FacadePerson {
     }
 
     //TODO public PersonDTO editPerson(long id, PersonDTO personDTO)
-    /*public PersonDTO editPerson(long id, PersonDTO personDTO) {
+    public PersonDTO editPerson(long id, PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
-        Query query;
         try {
-            Person person = new Person(personDTO.getFirstName(), personDTO.getLastName(), personDTO.getEmail());
-            query = em.createQuery("UPDATE Person p SET p.firstName = :firstName");
+            Person person = em.find(Person.class, id);
+
+            person.setFirstName( personDTO.getFirstName() );
+            person.setLastName( personDTO.getLastName() );
+            person.setEmail( personDTO.getEmail() );
+            person.setAddress( personDTO.getAddress() );
+            person.setHobbies( personDTO.getHobbies() );
+            person.setPhones( personDTO.getPhones() );
+
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+
+            return new PersonDTO(person);
         } finally {
             em.close();
         }
-    }*/
+
+    }
 }

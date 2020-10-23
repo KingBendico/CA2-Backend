@@ -23,8 +23,7 @@ public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
- //  @GeneratedValue(strategy = GenerationType.IDENTITY)
- // private Long id;
+  
     @Id
     @Column(length = 4)
     private String zipCode;

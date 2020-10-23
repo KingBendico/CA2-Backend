@@ -21,8 +21,7 @@ public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
  
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // private Long id;  
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     @Id
     @Column(length = 50)

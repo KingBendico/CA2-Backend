@@ -1,13 +1,17 @@
 package rest;
 
+import Exceptions.EntityNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.PersonDTO;
+import facades.FacadePerson;
 import utils.EMF_Creator;
-import facades.FacadeExample;
+// import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("persons")
 public class PersonResource {
@@ -16,8 +20,9 @@ public class PersonResource {
 
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
+    //commit me you fucking git
 
-    private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
+    private static final FacadePerson FACADE = FacadePerson.getFacadePerson(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
@@ -36,15 +41,32 @@ public class PersonResource {
     @Path("/hobby/{hobby}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getPersonsByHobby(@PathParam("hobby") String hobby) {
-        return null;
+    public Response getPersonsByHobby(@PathParam("hobby") String hobby) throws EntityNotFoundException{
+        List<PersonDTO> personList = FACADE.getPersonsByHobby(hobby);
+
+        if(personList.isEmpty()){
+            throw new EntityNotFoundException("The hobby you are looking for does not exist, or does not have any participants");
+        }
+
+        return Response.ok()
+                .entity(GSON.toJson(personList))
+                .build();
+
     }
 
     @Path("/zip/{zip}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getPersonsByZip(@PathParam("zip") int zip) {
-        return null;
+    public Response getPersonsByZip(@PathParam("zip") String zip) throws EntityNotFoundException{
+        List<PersonDTO> personList = FACADE.getPersonsByZip(zip);
+
+        if(personList.isEmpty()){
+            throw new EntityNotFoundException("The zip you are looking for does not exist, or does not have any residents");
+        }
+
+        return Response.ok()
+                .entity( GSON.toJson(personList) )
+                .build();
     }
 
     @Path("/add")

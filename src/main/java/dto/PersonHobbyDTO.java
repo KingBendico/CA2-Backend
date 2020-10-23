@@ -1,5 +1,6 @@
 package dto;
 
+//TODO depricated???
 public class PersonHobbyDTO {
     private long id;
     private String email, firstName, lastName, address, hName, zip;

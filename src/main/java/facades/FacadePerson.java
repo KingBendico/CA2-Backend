@@ -2,8 +2,10 @@ package facades;
 
 import dto.PersonDTO;
 import dto.PersonHobbyDTO;
+import entities.Address;
 import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,52 +59,91 @@ public class FacadePerson {
     //TODO getPersons()
     public List<PersonDTO> getPersons() {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
-        List<Person> persons = query.getResultList();
-        List<PersonDTO> personDTOList = new ArrayList<>();
-        persons.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        List<PersonDTO> personDTOList;
+        try {
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
+            List<Person> persons = query.getResultList();
+            personDTOList = new ArrayList<>();
+            persons.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        } finally {
+            em.close();
+        }
         return personDTOList;
     }
 
     //TODO public List<PersonDTO> getPersonsByHobby(Hobby hobby)
     public List<PersonDTO> getPersonsByHobby(String hobby) {
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.hName=:hobby");
-        query.setParameter("hobby", hobby);
-        List<Person> personDetails = query.getResultList();
-        List<PersonDTO> personDTOList = new ArrayList<>();
-        personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        List<PersonDTO> personDTOList;
+        try {
+            Query query = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.hName=:hobby");
+            query.setParameter("hobby", hobby);
+            List<Person> personDetails = query.getResultList();
+            personDTOList = new ArrayList<>();
+            personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        } finally {
+            em.close();
+        }
         return personDTOList;
     }
 
     //TODO public List<PersonDTO> getPersonsByZip(String zip)
     public List<PersonDTO> getPersonsByZip(String zip) {
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT p FROM Person p WHERE NOT EXISTS (SELECT a FROM Address a JOIN a.cityInfo c WHERE c.zipCode=:zip)");
-        query.setParameter("zip", zip);
-        List<Person> personDetails = query.getResultList();
-        List<PersonDTO> personDTOList = new ArrayList<>();
-        personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        List<PersonDTO> personDTOList;
+        try {
+            Query query = em.createQuery("SELECT p FROM Person p WHERE NOT EXISTS (SELECT a FROM Address a JOIN a.cityInfo c WHERE c.zipCode=:zip)");
+            query.setParameter("zip", zip);
+            List<Person> personDetails = query.getResultList();
+            personDTOList = new ArrayList<>();
+            personDetails.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+        } finally {
+            em.close();
+        }
         return personDTOList;
     }
 
     //Single result methods
 
     //TODO public PersonDTO getPersonByPhone(String phone)
-    /*public PersonDTO getPersonByPhone(String phone) {
+    public PersonDTO getPersonByPhone(String phone) {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createQuery("SELECT pe FROM Person pe JOIN pe.phones ph WHERE NOT EXISTS (SELECT n FROM Phone n WHERE ph = n AND n.number=:phone)", Person.class);
-        query.setParameter("phone", phone);
+        TypedQuery<Person> query;
+        try {
+            query = em.createQuery("SELECT pe FROM Person pe JOIN pe.phones ph WHERE NOT EXISTS (SELECT n FROM Phone n WHERE ph = n AND n.number=:phone)", Person.class);
+            query.setParameter("phone", phone);
+        } finally {
+            em.close();
+        }
         return new PersonDTO(query.getSingleResult());
-    }*/
-    //TODO public PersonDTO addPerson(PersonDTO person)
+    }
 
-    //TODO public PersonDTO editPerson(long id, PersonDTO person)
-    /*public PersonDTO editPerson(long id, PersonDTO personDTO) {
+    //TODO public PersonDTO addPerson(PersonDTO personDTO)
+    public PersonDTO addPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
         Person person = new Person(personDTO.getFirstName(), personDTO.getLastName(), personDTO.getEmail());
-        Query query = em.createQuery("UPDATE Person p SET p.firstName = :firstName");
+        person.setAddress(personDTO.getAddress());
+        personDTO.getPhones().forEach((Object phone) -> person.addPhone((Phone) phone));
+        personDTO.getHobbies().forEach((Object hobby) -> person.addHobby((Hobby) hobby));
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(person);
+    }
 
+    //TODO public PersonDTO editPerson(long id, PersonDTO personDTO)
+    /*public PersonDTO editPerson(long id, PersonDTO personDTO) {
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try {
+            Person person = new Person(personDTO.getFirstName(), personDTO.getLastName(), personDTO.getEmail());
+            query = em.createQuery("UPDATE Person p SET p.firstName = :firstName");
+        } finally {
+            em.close();
+        }
     }*/
-
 }

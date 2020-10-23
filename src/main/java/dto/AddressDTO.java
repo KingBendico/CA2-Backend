@@ -1,5 +1,7 @@
 package dto;
 
+import entities.Address;
+
 /**
  * @author Joakim
  */
@@ -7,9 +9,9 @@ public class AddressDTO {
     private String street, additionalInfo;
 
     //Constructors
-    public AddressDTO(String street, String additionalInfo) {
-        this.street = street;
-        this.additionalInfo = additionalInfo;
+    public AddressDTO(Address address) {
+        this.street = address.getStreet();
+        this.additionalInfo = address.getAdditionalInfo();
     }
 
     //Getters and setters

@@ -28,8 +28,7 @@ public class Person implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-  
-      //en til mange , cascade = CascadeType.PERSIST
+    
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     private List<Phone> phones;
 

@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,6 +45,7 @@ public class Hobby implements Serializable {
         this.wikiLink = hLink;
         this.type = hType;
         this.category = hCategory;
+        this.persons = new ArrayList<>();
     }
 
     //Getters & Setters

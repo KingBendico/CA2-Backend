@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,6 +43,7 @@ public class CityInfo implements Serializable {
     public CityInfo(String zipCode, String city) {
         this.zipCode = zipCode;
         this.city = city;
+        this.addresses = new ArrayList<>();
     }
     
    

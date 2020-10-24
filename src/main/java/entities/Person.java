@@ -30,7 +30,7 @@ public class Person implements Serializable {
     private String email;
   
       //en til mange , cascade = CascadeType.PERSIST
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     private List<Phone> phones;
 
     //mange til en
@@ -39,7 +39,7 @@ public class Person implements Serializable {
     
     //mange til mange
     @ManyToMany
-     private List<Hobby> hobbies;
+    private List<Hobby> hobbies;
     
     
     //Constructors
